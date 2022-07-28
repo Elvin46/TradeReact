@@ -1,31 +1,22 @@
 import React from 'react';
 import { CommonPageContainer } from '../../components/CommonPageContainer';
-import {Link} from 'react-router-dom'
-<<<<<<< HEAD
+import {Link} from 'react-router-dom';
 import { APP_ROUTES } from '../../consts';
-=======
-
->>>>>>> 188f35447f3c47f110e1a56975d8679c191f138c
 export const MyDemands : React.FC =()=>{
-   
+    const [isEditModalOpen,setEditModalOpen] = React.useState(false);
+    const editDemand = React.useCallback(()=>{
+        setEditModalOpen((isEditModalOpen)=>!isEditModalOpen);      
+    },[isEditModalOpen])
     return (
        <CommonPageContainer>
         <main>
             <div className="demands-header d-flex align-items-center justify-content-between row">
-<<<<<<< HEAD
                     <div className="inputs col-md-6 col-sm-12 text-center">
-=======
-                    <div className="inputs col-md-6 col-sm-12">
->>>>>>> 188f35447f3c47f110e1a56975d8679c191f138c
                         <input placeholder="Search by Date" type="date"/>
                         <input placeholder="Search results" type="search"/>
                     </div>
                     <div className='col-md-6 col-sm-12 d-flex justify-content-end newDemand'>
-<<<<<<< HEAD
                         <Link to={APP_ROUTES.DEMANDS.CREATE_PATH}>
-=======
-                        <Link to={'/newDemand'}>
->>>>>>> 188f35447f3c47f110e1a56975d8679c191f138c
                             <button className="demond-button">New Demond</button>
                         </Link>
                     </div>
@@ -34,19 +25,30 @@ export const MyDemands : React.FC =()=>{
             <div className="secondDiv">
                <div className="">
                     <div className="d-flex justify-content-between row" style={{padding:'25px'}}>
-                            <div className='col-md-4 col-sm-12'>
+                            <div className='col-md-6 col-sm-12'>
                                 <p style={{fontWeight:'bold'}}>Food purchase demand</p>
                                 <p>Cameroon</p>
                             </div>
-                            <div className='col-md-4 col-sm-12 d-flex justify-content-end'>
-                                <span style={{marginLeft:'10px'}}>Last bid date : <span style={{fontWeight:'bold'}}>05.01.2022</span></span>
+                            <div className='col-md-5 col-sm-12 d-flex justify-content-between'>
+                                <span style={{marginLeft:'30px'}}>Last bid date : <span style={{fontWeight:'bold'}}>05.01.2022</span></span>
                                 <span>Last bid time : <span style={{fontWeight:'bold'}}> 18:00</span></span>
                                
                             </div>
-                            <div className='col-md-4 d-flex justify-content-end'>
-                            <div style={{marginLeft:10}}>
-                                    <a style={{color:'#d85a54',fontSize:'24px',textDecoration: 'none'}} href="#">...</a>
+                            <div className='col-md-1 d-flex justify-content-end position-relative'>
+                                <div style={{marginLeft:10}}>
+                                        <button onClick={()=>editDemand()} style={{color:'#d85a54',fontSize:'24px',textDecoration: 'none', border: 'none', background:'transparent'}} >...</button>
+                                </div>
+                            {!!isEditModalOpen ? 
+                            <div className='edit-modal position-absolute'>
+                                <div className='edit-modal-header'><span>Edit Demands</span></div>
+                                <div className='edit-modal-body'>
+                                    <button className='edit-modal-btn'>Update Request</button>
+                                    <button className='edit-modal-btn'>Remove Request</button>
+                                </div>
                             </div>
+                            :<></>}
+
+                                
                             </div>
                     </div>
                 </div>

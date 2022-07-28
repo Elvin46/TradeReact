@@ -16,6 +16,9 @@ export const APP_ROUTES = {
     },
     FAVOURITES: {
         PATH:"/favourites"
+    },
+    NOTIFICATIONS:{
+        PATH:"/notifications"
     }
    
 }

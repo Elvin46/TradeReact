@@ -6,8 +6,13 @@ import { Home } from '../../pages/home/Home';
 import { APP_ROUTES } from '../../consts';
 
 export const Header : React.FC =()=>{
-   
+    const [isModalOpen,setModalOpen]=React.useState(false);
+   let content;
 
+    const openNotification=React.useCallback(()=>{
+        setModalOpen((isModalOpen)=>!isModalOpen);
+        
+    },[isModalOpen])
 
     return (
         <>
@@ -132,7 +137,8 @@ export const Header : React.FC =()=>{
                            </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link nav-icon" to="#"><Bell size={22}/></Link>
+                            {!!isModalOpen ? <button className="nav-link nav-icon notification-btn active" onClick={()=>openNotification()} ><Bell size={22}/></button> :<button className="nav-link nav-icon notification-btn" onClick={()=>openNotification()} ><Bell size={22}/></button>}
+                            
                         </li>
                         <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle nav-link-lg" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -151,30 +157,31 @@ export const Header : React.FC =()=>{
                         </li>
                         </ul>
                 </div>
-                <div className="modalOpen" style={{display:'none'}}>
-                <div className="notification">
-                    Latest notifications
-                </div>
-                <ul className="notification-cards d-flex align-items-center flex-column">
-                    <li className="notification-card d-flex flex-row align-items-center">
-                    <div className="card-profile">IB</div>
-                    <div className="ps-3 notification-info"> 
-                        <p className="name">Ilkin Bayramov</p>
-                        <p className="work">UI/UX</p>
-                        <p className="date">7 hours ago</p>
+                {!!isModalOpen ? <div className="modalOpen">
+                    <div className="notification">
+                        Latest notifications
                     </div>
-                    </li>
-                    <li className="notification-card d-flex flex-row align-items-center">
-                    <div className="card-profile">IB</div>
-                    <div className="ps-3 notification-info"> 
-                        <p className="name">Ilkin Bayramov</p>
-                        <p className="work">UI/UX</p>
-                        <p className="date">7 hours ago</p>
-                    </div>
-                    </li>
-                </ul>
-                <Link className="nav-link primary-button " to="#">All Notifications</Link>
-                </div>
+                    <ul className="notification-cards d-flex align-items-center flex-column">
+                        <li className="notification-card d-flex flex-row align-items-center">
+                        <div className="card-profile">IB</div>
+                        <div className="ps-3 notification-info"> 
+                            <p className="name">Ilkin Bayramov</p>
+                            <p className="work">UI/UX</p>
+                            <p className="date">7 hours ago</p>
+                        </div>
+                        </li>
+                        <li className="notification-card d-flex flex-row align-items-center">
+                        <div className="card-profile">IB</div>
+                        <div className="ps-3 notification-info"> 
+                            <p className="name">Ilkin Bayramov</p>
+                            <p className="work">UI/UX</p>
+                            <p className="date">7 hours ago</p>
+                        </div>
+                        </li>
+                    </ul>
+                    <Link className="nav-link primary-button " to={APP_ROUTES.NOTIFICATIONS.PATH}>All Notifications</Link>
+                </div>: <></>}
+
             </nav>
         </>
     )

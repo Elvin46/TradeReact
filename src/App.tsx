@@ -12,6 +12,7 @@ import {NewDemand} from './pages/myDemands/NewDemand'
 import { NewAds } from './pages/myAds/NewAds';
 import { Keywords } from './pages/keywords/Keywords';
 import { Favourites } from './pages/favourites/Favourites';
+import { AllNotifications } from './pages/allNotifications/AllNotifications';
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
         <Route path={APP_ROUTES.KEYWORDS.PATH} element={<Keywords/>}>
         </Route>
         <Route path={APP_ROUTES.FAVOURITES.PATH} element={<Favourites/>}>
+        </Route>
+        <Route path={APP_ROUTES.NOTIFICATIONS.PATH} element={<AllNotifications/>}>
         </Route>
       </Routes>
     </>
