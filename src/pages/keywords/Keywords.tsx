@@ -16,8 +16,8 @@ export const Keywords : React.FC =()=>{
                             <button>Save</button>
                         </div>
                     </div>
-                    <div className="col-md-8 rightSide" >
-                        <p>Your Keywords</p>
+                    <div className="col-md-7 rightSide" >
+                        <p style={{marginTop:'10px'}}>Your Keywords</p>
                         <input type="search"/>
                     </div>
                 </div>

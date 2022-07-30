@@ -51,6 +51,20 @@ header{
 
 nav{
     height: 80px;
+    .navbar-brand{
+        .Net{
+            width: 171px;
+            height: 31px;
+            font-weight: 600;
+            font-size: 36px;
+            line-height: 43px;
+            letter-spacing: -0.0264em;
+            margin-right: 10px;
+            }
+            .Trade{
+                font-weight: 300;
+            }
+    }
     .navbar-brand span{
         font-weight: 600;
     }
@@ -186,6 +200,9 @@ nav{
         span{
             color: white;
         }
+        .demandIcon{
+            color: white;
+        }
     }
 }
 #sidebar-item.active{
@@ -235,7 +252,7 @@ main {
            input{
             background-color: #E5E5E5;
             border-radius: 8px;
-            width: 240px;
+            width: 200px;
             height: 64px;
             border: none;
             margin-bottom: 10px;
@@ -600,3 +617,4 @@ body {
         
     }
 }
+
