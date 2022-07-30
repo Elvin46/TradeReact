@@ -13,7 +13,8 @@ import { NewAds } from './pages/myAds/NewAds';
 import { Keywords } from './pages/keywords/Keywords';
 import { Favourites } from './pages/favourites/Favourites';
 import { AllNotifications } from './pages/allNotifications/AllNotifications';
-import { Login } from './pages/login/Login';
+import { Register } from './pages/register/Register';
+import { RegisterLastPage } from './pages/register/RegisterLastPage';
 
 function App() {
   return (
@@ -35,7 +36,9 @@ function App() {
         </Route>
         <Route path={APP_ROUTES.NOTIFICATIONS.PATH} element={<AllNotifications/>}>
         </Route>
-        <Route path={APP_ROUTES.LOGIN.PATH} element={<Login/>}>
+        <Route path={APP_ROUTES.REGISTER.PATH} element={<Register/>}>
+        </Route>
+        <Route path={APP_ROUTES.REGISTER.CONTINUE_PATH} element={<RegisterLastPage/>}>
         </Route>
       </Routes>
     </>
