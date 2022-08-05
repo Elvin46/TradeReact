@@ -5,13 +5,19 @@ import { APP_ROUTES } from '../../consts';
 import message from './messages.png'
 import vector from './iconca.png'
 import ztag from './ztag.png'
+import { DemandContext   } from '../../App';
+import { User } from '../../models';
 
-export const MyDemands : React.FC =()=>{
+export const MyDemands =()=>{
     const [isEditModalOpen,setEditModalOpen] = React.useState(false);
     const editDemand = React.useCallback(()=>{
         setEditModalOpen((isEditModalOpen)=>!isEditModalOpen);      
     },[isEditModalOpen])
-
+    const demands = React.useContext(DemandContext);
+    demands.map((demand)=>{
+        console.log(demand);
+    })
+    
     return (
        <CommonPageContainer>
         <main>
@@ -27,14 +33,15 @@ export const MyDemands : React.FC =()=>{
                     </div>
             </div>
 
-            <div className="secondDiv">
+            {demands.map((demand)=>(
+                <div className="secondDiv">
                 <div className="">
                     <div className="d-flex justify-content-between row" style={{padding:'25px'}}>
                             <div className='col-md-6 col-sm-12 d-flex'>
                                 <div style={{marginRight:'10px',marginLeft:'-20px'}}><img src={ztag} alt="" /></div>
                                <div> 
                                 <p style={{fontWeight:'bold'}}>Food purchase demand</p>
-                                <p>Cameroon</p></div>
+                                <p>{demand.countryName}</p></div>
                             </div>
                             <div className='col-md-5 col-sm-12 d-flex justify-content-between'>
                                 <span style={{marginLeft:'30px'}}>Last bid date : <span style={{fontWeight:'bold'}}>05.01.2022</span></span>
@@ -104,6 +111,7 @@ export const MyDemands : React.FC =()=>{
                 </div>
                 
             </div>
+            ))}
         </main>
           
        </CommonPageContainer>
