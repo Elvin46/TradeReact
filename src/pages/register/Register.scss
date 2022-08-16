@@ -15,6 +15,7 @@ margin-right: 10px;
 .Trade{
     font-weight: 300;
 }
+
 .Register{
 font-weight: 600;
 font-size: 24px;
@@ -24,13 +25,42 @@ color: #000000;
 margin-top: 40px;
 margin-left: 50px;
 margin-bottom: 30px;
+span{
+    color:#D85A54;
+    transition: 0.4s;
+    &:hover{
+        color: #c04740;
+    }
+}
+}
+.register-next{
+    margin-bottom: 0;
 }
 .left-side{
+    .next-input{
+        margin-bottom: 15px;
+    }
     input{
         background: #F8F8F8;
         border: 1px solid #F1F1F1;
         border-radius: 8px;
         margin-bottom: 30px;
+        color: #999999;
+        &:focus-visible{
+            outline: 1px solid #999999;
+        }
+    }
+    select{
+        display: block;
+        width: 185.2px;
+        background: #F8F8F8;
+        border: 1px solid #F1F1F1;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        color: #999999;
+        &:focus-visible{
+            outline: 1px solid #999999;
+        }
     }
     label{
         display: block;
@@ -73,6 +103,17 @@ border-radius: 8px;
 width: 700px ;
 }
 .textarea{
+    background: #F8F8F8;
+    border: 1px solid #F1F1F1;
+    border-radius: 8px;
+    width: 700px ;
+    color: #999999;
+        &:focus-visible{
+            outline: 1px solid #999999;
+        }
+
+}
+.textarea-header{
     font-size: 17px;
     line-height: 24px;
     letter-spacing: -0.96px;
@@ -87,4 +128,7 @@ width: 700px ;
 .row{
     margin-right: 0px !important;
     margin-left: 0px !important;
+}
+.previous-page{
+    cursor: pointer;
 }

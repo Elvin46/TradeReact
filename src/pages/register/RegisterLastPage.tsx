@@ -1,10 +1,21 @@
 import React from 'react';
 import { Row } from 'reactstrap';
 import "./Register.scss"
-
+import {addDoc, collection} from 'firebase/firestore';
+import { db } from '../../firebase-config';
 
 export const RegisterLastPage : React.FC =()=>{
-   
+    const [user,setUser] = React.useState({});
+    const [company,setCompany] = React.useState({});
+    const userCollectionRef = collection(db,"Users");
+    console.log(userCollectionRef);
+    
+    const companyCollectionRef = collection(db,"Companies");
+    const signUp = React.useCallback(async ()=>{
+       const test= await addDoc(userCollectionRef,user)
+       console.log(test);
+       
+    },[])
     return (
             <Row className='row'>
                 <div className="col-md-4 " style={{backgroundColor:'#f6f6f6',padding:'40px'}}>
@@ -116,7 +127,7 @@ export const RegisterLastPage : React.FC =()=>{
                         </svg>
                         </div >
                         <div >
-                        <button className='button'>Create </button>
+                        <button className='nav-link register-button' onClick={()=>signUp()}>Create </button>
                         </div>
                     </div>
                 </div>

@@ -16,7 +16,7 @@ import { Favourites } from './pages/favourites/Favourites';
 import { AllNotifications } from './pages/allNotifications/AllNotifications';
 import { Register } from './pages/register/Register';
 import { RegisterLastPage } from './pages/register/RegisterLastPage';
-import {collection, doc, getDocs} from "firebase/firestore"
+import {collection, getDocs} from "firebase/firestore"
 import {db} from "./firebase-config"
 import { User } from './models';
 export const UserContext = React.createContext<Array<object>>([]);
@@ -26,6 +26,7 @@ function App() {
   const usersCollectionRef = collection(db,"Users");
   const [demands,setDemands] = React.useState<object[]>([]);
   const demandsCollectionRef = collection(db,"Demands");
+  
   React.useEffect(()=>{
     const getUsers =async ()=>{
       const data = await getDocs(usersCollectionRef);
@@ -46,6 +47,8 @@ function App() {
     <UserContext.Provider value={users}>
     <DemandContext.Provider value={demands}>
     <Routes>
+        <Route path={APP_ROUTES.REGISTER.PATH} element={<Register/>}>
+        </Route>
         <Route path={APP_ROUTES.HOME.PATH} element={<Home/>}>
         </Route>
         <Route path={APP_ROUTES.DEMANDS.PATH} element={<MyDemands/>}>
@@ -62,10 +65,7 @@ function App() {
         </Route>
         <Route path={APP_ROUTES.NOTIFICATIONS.PATH} element={<AllNotifications/>}>
         </Route>
-        <Route path={APP_ROUTES.REGISTER.PATH} element={<Register/>}>
-        </Route>
-        <Route path={APP_ROUTES.REGISTER.CONTINUE_PATH} element={<RegisterLastPage/>}>
-        </Route>
+        
       </Routes>
       </DemandContext.Provider>
     </UserContext.Provider>

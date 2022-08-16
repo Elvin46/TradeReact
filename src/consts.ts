@@ -21,8 +21,7 @@ export const APP_ROUTES = {
         PATH:"/notifications"
     },
     REGISTER:{
-        PATH:"/register-first-page",
-        CONTINUE_PATH:"/register-last-page"
+        PATH:"/register"
     }
    
 }

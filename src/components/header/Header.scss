@@ -617,4 +617,46 @@ body {
         
     }
 }
+.keyword-list{
+    display: flex;
+    flex-wrap: wrap;
+    .keyword{
+        display: flex;
+        align-items: center;
+        border: 2px solid #F0F1F0;
+        border-radius: 5px;
+        margin: 15px 10px;
+        height: 45px;
+        padding: 15px;
+        p{
+            margin: 0;
+        }
+        button{
+            color: #999999;
+            margin-left: 15px;
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            &:hover{
+                color: #c04740;
+            }
+        }
+    }
+}
 
+.register-button{
+    height: 40px;
+    text-align: center;
+    background: #D85A54;
+    border-radius: 10px;
+    color: white !important;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: -1.2px;
+    transition: 1.6s;
+    border: none;
+    &:hover{
+        background: #c04740;
+    }
+}

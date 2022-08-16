@@ -1,13 +1,182 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { ArrowLeftCircleFill } from 'react-bootstrap-icons';
 import { Row } from 'reactstrap';
-import "./Register.scss"
+import "./Register.scss";
+import {addDoc, collection,getDocs} from 'firebase/firestore';
+import { db } from '../../firebase-config';
+import Select from 'react-select';
+export const Register=()=>{
+    const [nextPage,setNextPage] = React.useState(false);
+    const [companyData, setCompanyData] = useState({})
+    const [userData,setUserData] = React.useState({});
+    const userCollectionRef = collection(db,"Users");
+    const companyCollectionRef = collection(db,"Companies");
+    const [countries,setCountries] = React.useState([]);
+    const countriesCollectionRef = collection(db,"Demands");
+    let content;
+    const options = [
+        { value: 'chocolate', label: 'Chocolate' },
+        { value: 'strawberry', label: 'Strawberry' },
+        { value: 'vanilla', label: 'Vanilla' }
+      ]
+    const toNextPage = React.useCallback(()=>{
+        setNextPage((nextPage)=>!nextPage); 
+    },[])
+    const inputChangeHandler = (event) => {
+        const {name, value} = event.target
+        setCompanyData({...companyData, [name]: value})
+        console.log(companyData); 
+    }
+    const inputChangeUserHandler = (event) => {
+        const {name, value} = event.target
+        setUserData({...userData, [name]: value})
+        console.log(userData); 
+    }
+    
+    const signUp = React.useCallback(async ()=>{
+        await addDoc(companyCollectionRef,companyData)
+        await addDoc(userCollectionRef,userData)
+    },[])
+    
+    if (nextPage) {
+        content = (
+            <div className="col-md-8" >
+                <div className='Register register-next'>
+                    <span style={{marginRight:'15px'}}><ArrowLeftCircleFill style={{cursor:'pointer'}}   size={30} onClick={()=>toNextPage()}></ArrowLeftCircleFill></span>
+                    Register
+                </div>
+                <div className="row" style={{padding:'30px 30px 10px 30px'}}>
+                    <div className="col-md-5 left-side ">
+                    <label htmlFor="taxNumber">Tax number</label>
+                    <input className='next-input' type="text" id="taxNumber" name="taxNumber" onChange={(e)=>inputChangeHandler(e)}/>
+                    </div>
+                    <div className="col-md-5 left-side ">
+                    <label htmlFor="taxAdministration">Tax Admintration</label>
+                    <input className='next-input' type="text" id="taxAdministration" name="taxAdministration" onChange={(e)=>inputChangeHandler(e)}/>
+                    </div>
+                    {/* <div className="col-md-4 left-side ">
+                    <label htmlFor="">Activity Area</label>
+                    <input type="text" />
+                    </div> */}
+                    <div className="col-md-4 left-side ">
+                    <label htmlFor="activityDuration">Activity Duration</label>
+                    <input className='next-input' type="text" id="activityDuration" name="activityDuration" onChange={(e)=>inputChangeHandler(e)}/>
+                    </div>
+                    <div className="col-md-4 left-side ">
+                    <label htmlFor="personalNumber">Personal Number</label>
+                    <input className='next-input' type="text" id="personalNumber" name="personalNumber" onChange={(e)=>inputChangeHandler(e)}/>
+                    </div>
+                    <div className="col-lg-12">
+                        <p className='textarea-header'>introduce your company</p>
+                        <textarea className='textarea' name="companyDescription" id="companyDescription" onChange={(e)=>inputChangeHandler(e)}></textarea>
+                    </div>
 
+                    <hr />
 
-export const Register : React.FC =()=>{
-   
+                    <h5>Compant Representative</h5>
+                    <div className="col-md-6 left-side">
+                        <label htmlFor="name">Name Surname</label>
+                        <input className='next-input' type="text" id="name" name="name" onChange={(e)=>inputChangeUserHandler(e)}/>
+                    </div>
+                    <div className="col-md-6 left-side">
+                        <label htmlFor="surName">Surname</label>
+                        <input className='next-input' type="text" id="surName" name="surName" onChange={(e)=>inputChangeUserHandler(e)}/>
+                    </div>
+                    <div className="col-md-6 left-side">
+                        <label htmlFor="mission">Mission</label>
+                        <input className='next-input' type="text" id="mission" name="mission" onChange={(e)=>inputChangeUserHandler(e)}/>
+                    </div>
+                    <div className="col-md-6 left-side">
+                        <label htmlFor="authPhone">Phone</label>
+                        <input className='next-input' type="number" id="authPhone" name="authPhone" onChange={(e)=>inputChangeUserHandler(e)}/>
+                    </div>
+                    <div className="col-md-6 left-side">
+                        <label htmlFor="mail">Email</label>
+                        <input className='next-input' type="email" id="mail" name="mail" onChange={(e)=>inputChangeUserHandler(e)}/>
+                    </div>
+                    <div className="col-md-6 left-side">
+                        <label htmlFor="">Activation Code</label>
+                        <input className='next-input' type="text" />
+                    </div>
+                    <h5 className='mb-4'>My Document</h5>
+                    <input  className='file mb-4 next-input' type="file" name="" id="" />
+                    
+                </div>
+                <div className='d-flex  nese'>
+                    <div className='svg'>
+                    <svg  width="60" height="10" viewBox="0 0 60 10" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                    <circle className='previous-page' r="5" transform="matrix(1 0 0 -1 5 5)" fill="#E5E5E5" onClick={()=>toNextPage()}/>
+                    <rect width="40" height="10" rx="5" transform="matrix(1 0 0 -1 20 10)" fill="#D85A54"/>
+                    </svg>
+                    </div >
+                    <div >
+                    <button className='nav-link register-button' onClick={()=>signUp()}>Create </button>
+                    </div>
+                </div>
+            </div>
+        )
+    }else{
+        content=(
+            <div className="col-md-8">
+                <div className='Register'>Register</div>
+                <div className="row">
+                <div className="col-md-4 left-side mx-5">
+                    <label htmlFor="companyName">Company Name</label>
+                    <input type="text" id="companyName" name="companyName" onChange={(e)=>inputChangeHandler(e)} />
+                    <label htmlFor="companyPhone" >Phone</label>
+                    <input type="number" id="companyPhone" name="companyPhone" onChange={(e)=>inputChangeHandler(e)}/>
+                    <label htmlFor="fax">Faxs</label>
+                    <input type="number" id="fax" name="fax" onChange={(e)=>inputChangeHandler(e)}/>
+                    {/* <label htmlFor="countryId">Select Country</label>
+                    <input type="select" id="countryId" name="countryId" onChange={(e)=>inputChangeHandler(e)}/> */}
+                    <select name="countries" id="countries">
+                        {countries.map((country)=>(
+                            <option value={country.countryKey}>{country.countryName}</option>
+                        ))}  
+                    </select>
+                    {/* <label htmlFor="">Select County</label>
+                    <input type="text" /> */}
+                </div>
+                <div className="col-md-4 left-side">
+                    <label htmlFor="web">Website</label>
+                    <input type="text" id="web" name="web" onChange={(e)=>inputChangeHandler(e)}/>
+                    <label htmlFor='mail'>Email</label>
+                    <input type="email" id="mail" name="mail" onChange={(e)=>inputChangeHandler(e)}/>
+                    <label htmlFor="address">Address</label>
+                    <input type="text" id="address" name="address" onChange={(e)=>inputChangeHandler(e)}/>
+                    {/* <label htmlFor="">Select City</label>
+                    <input type="text" /> */}
+                    {/* <label htmlFor="">Select Neightborhood</label>
+                    <input type="text" /> */}
+                </div>
+                </div>
+                <div className='d-flex  nese'>
+                    <div className='svg'>
+                    <svg width="60" height="10" viewBox="0 0 60 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle r="5" transform="matrix(1 0 0 -1 55 5)" fill="#E5E5E5"/>
+                    <rect width="40" height="10" rx="5" transform="matrix(1 0 0 -1 0 10)" fill="#D85A54"/>
+                    </svg>
+                    </div>
+                    <div>
+                    <button className='button' onClick={()=>toNextPage()}>Next Page</button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    React.useEffect(()=>{
+        const getCountries =async ()=>{
+          const data = await getDocs(countriesCollectionRef);
+          
+          setCountries(data.docs.map((doc)=>({...doc.data(), id: doc.id })));
+        }
+        
+        getCountries()
+      },[])
     return (
-            <Row>
-                <div className="col-md-4 leftSide" style={{backgroundColor:'#f6f6f6',padding:'40px'}}>
+            <Row >
+                <div className="col-md-4 leftSide" style={{backgroundColor:'#f6f6f6',padding:'40px',height:'100vh'}}>
                 <svg className='mb-3 mx-2' width="61" height="62" viewBox="0 0 61 62" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M35.3291 36.1416L16.0997 45.0872L25.0452 25.8577L44.2747 16.9122M30.1872 7.52051C27.1038 7.52051 24.0507 8.12781 21.2021 9.30775C18.3535 10.4877 15.7651 12.2172 13.5849 14.3974C9.1817 18.8006 6.70801 24.7726 6.70801 30.9997C6.70801 37.2267 9.1817 43.1988 13.5849 47.602C15.7651 49.7822 18.3535 51.5117 21.2021 52.6916C24.0507 53.8715 27.1038 54.4788 30.1872 54.4788C36.4142 54.4788 42.3863 52.0052 46.7895 47.602C51.1927 43.1988 53.6663 37.2267 53.6663 30.9997C53.6663 27.9163 53.059 24.8632 51.8791 22.0146C50.6992 19.166 48.9697 16.5776 46.7895 14.3974C44.6092 12.2172 42.0209 10.4877 39.1723 9.30775C36.3236 8.12781 33.2705 7.52051 30.1872 7.52051ZM30.1872 28.417C29.5022 28.417 28.8453 28.6891 28.3609 29.1734C27.8766 29.6578 27.6045 30.3147 27.6045 30.9997C27.6045 31.6847 27.8766 32.3416 28.3609 32.8259C28.8453 33.3103 29.5022 33.5824 30.1872 33.5824C30.8722 33.5824 31.5291 33.3103 32.0134 32.8259C32.4978 32.3416 32.7699 31.6847 32.7699 30.9997C32.7699 30.3147 32.4978 29.6578 32.0134 29.1734C31.5291 28.6891 30.8722 28.417 30.1872 28.417Z" fill="#D85A54"/>
                 </svg>
@@ -52,48 +221,7 @@ export const Register : React.FC =()=>{
                 </svg>
 
                 </div>
-                <div className="col-md-8">
-                    <div className='Register'>Register</div>
-                    <div className="row">
-                    <div className="col-md-4 left-side mx-5">
-                        <label htmlFor="text">Company Name</label>
-                        <input type="text" />
-                        <label htmlFor="number" >Phone</label>
-                        <input type="number" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"/>
-                        <label htmlFor="number">Faxs</label>
-                        <input type="number" />
-                        <label htmlFor="">Select Country</label>
-                        <input type="text" />
-                        <label htmlFor="">Select County</label>
-                        <input type="text" />
-                    </div>
-                    <div className="col-md-4 left-side">
-                        <label htmlFor="text">Website</label>
-                        <input type="text" />
-                        <label >Email</label>
-                        <input type="email" />
-                        <label htmlFor="number">Address</label>
-                        <input type="text" />
-                        <label htmlFor="">Select City</label>
-                        <input type="text" />
-                        <label htmlFor="">Select Neightborhood</label>
-                        <input type="text" />
-                    </div>
-                    </div>
-                    <div className='d-flex  nese'>
-                        <div className='svg'>
-                        <svg width="60" height="10" viewBox="0 0 60 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle r="5" transform="matrix(1 0 0 -1 55 5)" fill="#E5E5E5"/>
-                        <rect width="40" height="10" rx="5" transform="matrix(1 0 0 -1 0 10)" fill="#D85A54"/>
-                        </svg>
-                        </div >
-                        <div >
-                        <button className='button  '>Next Page</button>
-                        </div>
-                    </div>
-                </div>
-
-                
+                {content}
             </Row>
     )
 }

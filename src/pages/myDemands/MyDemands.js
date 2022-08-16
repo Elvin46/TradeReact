@@ -15,7 +15,7 @@ export const MyDemands =()=>{
     },[isEditModalOpen])
     const demands = React.useContext(DemandContext);
     demands.map((demand)=>{
-        console.log(demand);
+        
     })
     
     return (
@@ -37,15 +37,15 @@ export const MyDemands =()=>{
                 <div className="secondDiv">
                 <div className="">
                     <div className="d-flex justify-content-between row" style={{padding:'25px'}}>
-                            <div className='col-md-6 col-sm-12 d-flex'>
+                            <div className='col-md-5 col-sm-12 d-flex'>
                                 <div style={{marginRight:'10px',marginLeft:'-20px'}}><img src={ztag} alt="" /></div>
                                <div> 
                                 <p style={{fontWeight:'bold'}}>Food purchase demand</p>
                                 <p>{demand.countryName}</p></div>
                             </div>
-                            <div className='col-md-5 col-sm-12 d-flex justify-content-between'>
-                                <span style={{marginLeft:'30px'}}>Last bid date : <span style={{fontWeight:'bold'}}>05.01.2022</span></span>
-                                <span>Last bid time : <span style={{fontWeight:'bold'}}> 18:00</span></span>
+                            <div className='col-md-6 col-sm-12 d-flex justify-content-between'>
+                                <span style={{marginLeft:'30px'}}>Last bid date : <span style={{fontWeight:'bold'}}>{new Date(demand.lastBidDate.seconds * 1000).toLocaleDateString()}</span></span>
+                                <span>Last bid time : <span style={{fontWeight:'bold'}}> {new Date(demand.lastBidDate.seconds * 1000).toLocaleTimeString()}</span></span>
                                
                             </div>
                             <div className='col-md-1 d-flex justify-content-end position-relative'>
@@ -67,7 +67,7 @@ export const MyDemands =()=>{
                 
                 <div className='col-lg-12' style={{padding:'25px'}} >
                     <p style={{fontWeight:'bold'}}>Detail</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, enim? Id distinctio quidem ea? Tempore quidem temporibus optio impedit fugiat similique culpa tenetur necessitatibus itaque! Minima omnis pariatur alias hic?</p>
+                    <p>{demand.description}</p>
                 </div>
 
                 <div style={{padding:'25px'}} >

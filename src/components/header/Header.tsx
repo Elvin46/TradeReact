@@ -24,10 +24,10 @@ export const Header : React.FC =()=>{
                     <div className="list-group list-group-flush mx-3 mt-4">
                     <ul className="navbar-nav ms-5  flex-row login-sm">
                         <li className="nav-item">
-                            <Link className="nav-link nav-button" aria-current="page" to="#">Login</Link>
+                            <Link className="nav-link nav-button" aria-current="page" to={APP_ROUTES.REGISTER.PATH}>Login</Link>
                         </li>
                         <li className="nav-item ">
-                            <Link className="nav-link primary-button" to="#">Sign up</Link>
+                            <Link className="nav-link primary-button" to={APP_ROUTES.REGISTER.PATH}>Sign up</Link>
                         </li>
                     </ul>
                     <Link
@@ -142,10 +142,10 @@ export const Header : React.FC =()=>{
                </Link>
                     <ul className="navbar-nav ms-5 flex-row login-lg">
                         <li className="nav-item">
-                            <Link className="nav-link nav-button" aria-current="page" to="#">Login</Link>
+                            <Link className="nav-link nav-button" aria-current="page" to={APP_ROUTES.REGISTER.PATH}>Login</Link>
                         </li>
                         <li className="nav-item ">
-                            <Link className="nav-link primary-button" to="#">Sign up</Link>
+                            <Link className="nav-link primary-button" to={APP_ROUTES.REGISTER.PATH}>Sign up</Link>
                         </li>
                     </ul>
                         <ul className="navbar-nav nav-right ms-auto d-flex flex-row">
